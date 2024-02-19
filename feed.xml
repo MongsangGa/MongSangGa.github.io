@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://mongsangga.github.io/jekyll-theme-yat/feed.xml" rel="self" type="application/atom+xml" /><link href="https://mongsangga.github.io/jekyll-theme-yat/" rel="alternate" type="text/html" /><updated>2024-02-19T10:32:25+00:00</updated><id>https://mongsangga.github.io/jekyll-theme-yat/feed.xml</id><title type="html">MongsangGa</title><subtitle>Posting solved BOJ and Full-stack devlop skills</subtitle><author><name>MongsangGa</name></author><entry><title type="html">[C++] BOJ 2668 숫자고르기</title><link href="https://mongsangga.github.io/jekyll-theme-yat/boj/2023/12/05/BOJ2668.html" rel="alternate" type="text/html" title="[C++] BOJ 2668 숫자고르기" /><published>2023-12-05T00:00:00+00:00</published><updated>2023-12-05T00:00:00+00:00</updated><id>https://mongsangga.github.io/jekyll-theme-yat/boj/2023/12/05/BOJ2668</id><content type="html" xml:base="https://mongsangga.github.io/jekyll-theme-yat/boj/2023/12/05/BOJ2668.html"><![CDATA[<p><a href="https://www.acmicpc.net/problem/2668">2668번: 숫자고르기</a></p>
+
+<p>해당 문제는 일차원 배열에서 <strong>‘사이클’</strong> 을 구하는 문제이다. N이 100 이하이기 때문에 방문지를 체크하면서 DFS 를 구현만 하면 되는 문제인데 코드를 최적화하면서 신기하고 깔끔한 코드를 보게 되어서 공유하려고 한다.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="cp">#define SIZE 102
+</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">SIZE</span><span class="p">],</span> <span class="n">chk</span><span class="p">[</span><span class="n">SIZE</span><span class="p">],</span> <span class="n">res</span><span class="p">;</span>
+
+<span class="kt">void</span> <span class="nf">DFS</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">res</span><span class="o">++</span><span class="p">,</span> <span class="n">chk</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">DFS</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">i</span><span class="p">);</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">chk</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="sc">'\n'</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>x = arr[x]</strong> 한문장으로 재귀를 완성하는 코드이다. 박성훈님의 블로그를 보고 참고했다</p>
+
+<p><a href="https://koder0205.tistory.com/">Koder / 박성훈</a></p>]]></content><author><name>MongsangGa</name></author><category term="BOJ" /><category term="BOJ" /><summary type="html"><![CDATA[2668번: 숫자고르기]]></summary></entry><entry><title type="html">[C++] BOJ 8980 택배</title><link href="https://mongsangga.github.io/jekyll-theme-yat/boj/2023/11/23/BOJ8980.html" rel="alternate" type="text/html" title="[C++] BOJ 8980 택배" /><published>2023-11-23T00:00:00+00:00</published><updated>2023-11-23T00:00:00+00:00</updated><id>https://mongsangga.github.io/jekyll-theme-yat/boj/2023/11/23/BOJ8980</id><content type="html" xml:base="https://mongsangga.github.io/jekyll-theme-yat/boj/2023/11/23/BOJ8980.html"><![CDATA[<p><a href="https://www.acmicpc.net/problem/8980">8980번: 택배</a></p>
+
+<p>그리디 알고리즘인걸 알아도 접근하기 되게 어려운 문제다. [<a href="https://www.acmicpc.net/problem/1931">회의실배정</a>] 과 유사한 문제이니 같이 풀어보면 도움이 될 것 같다.</p>
+
+<p>이 문제는 <strong>‘트럭 한대로 배송할 수 있는 최대 박스 수’</strong> 를 구하기 위해 해당 마을에서 택배를 실을 수 있는 만큼 꽉꽉 담으면 문제를 해결할 수 있을거 같지만 아래와 같은 반례가 있다.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Case:01</span>
+<span class="mi">1</span> <span class="mi">4</span> <span class="mi">30</span>
+
+<span class="c1">// Case:02</span>
+<span class="mi">2</span> <span class="mi">3</span> <span class="mi">20</span>
+<span class="mi">3</span> <span class="mi">4</span> <span class="mi">20</span>
+</code></pre></div></div>
+
+<p>따라서 택배의 우선순위를 택배를 보내는 마을을 기준으로 하면 안되고 택배를 받는 마을을 기준으로 해야한다. 택배를 받는 마을을 기준으로 정렬해주고, 정렬 된 순서대로 택배를 실고 내리기 전까지 모든 마을에 가중치를 추가해주면 해결할 수 있다.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span><span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">MAX</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span><span class="p">,</span> <span class="n">box</span><span class="p">,</span> <span class="n">weight</span><span class="p">[</span><span class="mi">2002</span><span class="p">],</span> <span class="n">res</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">v</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">cin</span><span class="p">.</span><span class="n">tie</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+    <span class="n">ios_base</span><span class="o">::</span><span class="n">sync_with_stdio</span><span class="p">(</span><span class="nb">false</span><span class="p">);</span>
+    <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">MAX</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">from</span> <span class="o">&gt;&gt;</span> <span class="n">to</span> <span class="o">&gt;&gt;</span> <span class="n">box</span><span class="p">;</span>
+        <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">to</span><span class="p">,</span> <span class="n">from</span><span class="p">,</span> <span class="n">box</span><span class="p">});</span>
+    <span class="p">}</span>
+    <span class="n">sort</span><span class="p">(</span><span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">auto</span> <span class="o">&amp;</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">b</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">temp</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">weight</span><span class="p">[</span><span class="n">j</span><span class="p">]);</span>
+        <span class="kt">int</span> <span class="n">able_weight</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">MAX</span> <span class="o">-</span> <span class="n">temp</span><span class="p">);</span>
+        <span class="n">res</span> <span class="o">+=</span> <span class="n">able_weight</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">f</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">t</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">weight</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">able_weight</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">res</span><span class="p">;</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>]]></content><author><name>MongsangGa</name></author><category term="BOJ" /><category term="BOJ" /><summary type="html"><![CDATA[8980번: 택배]]></summary></entry></feed>
